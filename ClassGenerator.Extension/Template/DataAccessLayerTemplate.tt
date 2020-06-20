@@ -1,0 +1,146 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="W:\Lib\Appendesk.dll" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="DtoNamespace" #>
+<#@ parameter type="System.String" name="DtoClassName" #>
+<#@ parameter type="System.String" name="DtoParameterName" #>
+<#@ parameter type="System.String" name="SchemaName" #>
+<#@ parameter type="System.String" name="ClassName" #>
+<#@ parameter type="System.String" name="GetSql" #>
+<#@ parameter type="System.String" name="InsertSql" #>
+<#@ parameter type="System.String" name="UpdateSql" #>
+<#@ parameter type="System.String" name="DeleteSql" #>
+<#@ parameter type="System.Collections.Generic.List<Model.DbColumn>" name="DbColumns" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Collections.Generic;
+using System.Data;
+using Appendesk;
+using <#=DtoNamespace #>;
+
+namespace <#=Namespace #>
+{
+	public partial class <#=ClassName #> : DataLayer
+	{
+		public <#=ClassName #>()
+		{
+		}
+
+		public <#=ClassName #>(string connectionName) : base(connectionName)
+		{
+		}
+
+		public <#=ClassName #>(DataLayer dataLayer) : base(dataLayer)
+		{
+		}
+
+		public List<<#=DtoClassName #>> GetByParameter (List<QueryParameter> queryParameters)
+		{
+			var whereClause = string.Empty;
+
+            if (queryParameters.Count > 0)
+                whereClause = GetWhereClause(queryParameters);
+
+            string sql = "<#=GetSql #>" + whereClause;
+            var command = GetQueryCommand(sql);
+            command.AddParameters(queryParameters);
+            return GetEntites<<#=DtoClassName #>>(command);		
+		}
+
+		public void Insert (<#=DtoClassName #> <#=DtoParameterName #>)
+		{
+			const string sql = "<#=InsertSql #>";
+            var command = GetQueryCommand(sql);
+
+<# 
+foreach (var parameter in DbColumns) 
+{
+if(parameter.DbType == DbType.DateTime)
+{
+if(parameter.IsNullable == true)
+{#>
+			if(<#=DtoParameterName#>.<#=parameter.ColumnName#>.HasValue == true)
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			}
+			else
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", DBNull.Value, DbType.<#=parameter.DbType #>);
+			}
+<#}
+else
+{#>
+			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+<#}
+}
+else
+{#>
+			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+<#}
+}
+#>
+
+            Insert(command);		
+		}
+
+		public void Update (<#=DtoClassName #> <#=DtoParameterName #>)
+		{
+			const string sql = "<#=UpdateSql #>";
+            var command = GetQueryCommand(sql);
+
+<# 
+foreach (var parameter in DbColumns) 
+{
+if(parameter.DbType == DbType.DateTime)
+{
+if(parameter.IsNullable == true)
+{#>
+			if(<#=DtoParameterName#>.<#=parameter.ColumnName#>.HasValue == true)
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			}
+			else
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", DBNull.Value, DbType.<#=parameter.DbType #>);
+			}
+<#}
+else
+{#>
+			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+<#}
+}
+else
+{#>
+			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+<#}
+}
+#>
+
+            Update(command);		
+		}
+
+		public void Delete (<#=DtoClassName #> <#=DtoParameterName #>)
+		{
+			const string sql = "<#=DeleteSql #>";
+            var command = GetQueryCommand(sql);
+
+<# 
+foreach (var parameter in DbColumns) 
+{
+if(parameter.IsPrimaryKey == true)
+{#>
+			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+<#}
+
+}
+#>
+
+            Delete(command);
+		}
+	}
+}
