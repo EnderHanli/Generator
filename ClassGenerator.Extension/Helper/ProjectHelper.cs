@@ -11,6 +11,7 @@ namespace ClassGenerator.Extension.Helper
     {
         public const string ClassExtension = ".cs";
         public const string BaseFolderName = "Base";
+        public const string UserDefinedFolderName = "UserDefined";
         public const string DataTransferObjectSuffix = "Dto";
         public const string DataAccessLayerSuffix = "Dal";
         public const string BusinessLayerSuffix = "Bll";
@@ -59,17 +60,17 @@ namespace ClassGenerator.Extension.Helper
                 .Replace(" ", string.Empty);
         }
 
-        public static void IncludeNewFiles(string fileName)
+        public static void IncludeNewFiles(string fileName,string folderName=BaseFolderName)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var count = 0;
 
             foreach (Project project in Dte.Solution.Projects)
             {
-                if (!project.UniqueName.EndsWith(ProjectSuffix)) 
+                if (!project.UniqueName.EndsWith(ProjectSuffix))
                     continue;
 
-                var newfiles = GetFilesNotInProject(project, fileName);
+                var newfiles = GetFilesNotInProject(project, fileName, folderName);
 
                 foreach (var file in newfiles)
                     project.ProjectItems.AddFromFile(file);
@@ -100,7 +101,7 @@ namespace ClassGenerator.Extension.Helper
             return returnValue;
         }
 
-        private static List<string> GetFilesNotInProject(Project project, string fileName)
+        private static List<string> GetFilesNotInProject(Project project, string fileName, string folderName)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var returnValue = new List<string>();
@@ -109,6 +110,8 @@ namespace ClassGenerator.Extension.Helper
 
             if (startPath == null)
                 return returnValue;
+
+            startPath = startPath + "\\" + folderName;
 
             returnValue.AddRange(Directory.GetFiles(startPath, fileName, SearchOption.AllDirectories).Where(file => !projectFiles.Contains(file)));
             return returnValue;

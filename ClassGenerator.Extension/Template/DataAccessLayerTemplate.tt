@@ -1,5 +1,4 @@
 ﻿<#@ template language="C#" #>
-<#@ assembly name="W:\Lib\Appendesk.dll" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Data" #>
@@ -25,7 +24,7 @@ using <#=DtoNamespace #>;
 
 namespace <#=Namespace #>
 {
-	public partial class <#=ClassName #> : DataLayer
+	public sealed partial class <#=ClassName #> : DataLayer
 	{
 		public <#=ClassName #>()
 		{
@@ -49,7 +48,7 @@ namespace <#=Namespace #>
             string sql = "<#=GetSql #>" + whereClause;
             var command = GetQueryCommand(sql);
             command.AddParameters(queryParameters);
-            return GetEntites<<#=DtoClassName #>>(command);		
+            return GetEntites<<#=DtoClassName #>>(command);
 		}
 
 		public void Insert (<#=DtoClassName #> <#=DtoParameterName #>)
@@ -75,7 +74,14 @@ if(parameter.IsNullable == true)
 <#}
 else
 {#>
-			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			if(<#=DtoParameterName#>.<#=parameter.ColumnName#> != DateTime.MinValue)
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			}
+			else
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", DateTime.Now, DbType.<#=parameter.DbType #>);
+			}
 <#}
 }
 else
@@ -85,7 +91,7 @@ else
 }
 #>
 
-            Insert(command);		
+            Insert(command);
 		}
 
 		public void Update (<#=DtoClassName #> <#=DtoParameterName #>)
@@ -111,7 +117,14 @@ if(parameter.IsNullable == true)
 <#}
 else
 {#>
-			command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			if(<#=DtoParameterName#>.<#=parameter.ColumnName#> != DateTime.MinValue)
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", <#=DtoParameterName #>.<#=parameter.ColumnName #>, DbType.<#=parameter.DbType #>);
+			}
+			else
+			{
+				command.AddParameter("<#=parameter.ColumnName #>", DateTime.Now, DbType.<#=parameter.DbType #>);
+			}
 <#}
 }
 else
@@ -121,7 +134,7 @@ else
 }
 #>
 
-            Update(command);		
+            Update(command);
 		}
 
 		public void Delete (<#=DtoClassName #> <#=DtoParameterName #>)

@@ -19,34 +19,16 @@ using System;
 using System.Collections.Generic;
 using Appendesk;
 using <#=DtoNamespace #>;
-using <#=DalNamespace #>;
 
 namespace <#=Namespace #>
 {
     public partial class <#=ClassName #> : BusinessLayer
     {
-        private readonly <#=DalClassName #> <#=DalParameterName #>;
-
-        public <#=ClassName #>()
-        {
-            <#=DalParameterName #> = new <#=DalClassName #>();
-        }
-
-        public <#=ClassName #>(string connectionName)
-        {
-            <#=DalParameterName #> = new <#=DalClassName #>(connectionName);
-        }
-
-        public <#=ClassName #>(DataLayer dataLayer)
-        {
-            <#=DalParameterName #> = new <#=DalClassName #>(dataLayer);
-        }
-
-        public List<<#=DtoClassName #>> GetByParameter(List<QueryParameter> queryParameters)
+        public List<<#=DtoClassName #>> GetEntities(List<QueryParameter> queryParameters)
         {
             try
             {
-                return <#=DalParameterName #>.GetByParameter(queryParameters);
+                return GetByParameter(queryParameters);
             }
             catch (Exception)
             {
@@ -54,15 +36,26 @@ namespace <#=Namespace #>
             }
         }
 
-        public <#=DtoClassName #> Insert(<#=DtoClassName #> <#=DtoParameterName #>)
+        public List<<#=DtoClassName #>> Insert(List<<#=DtoClassName #>> <#=DtoParameterName #>)
         {
             try
             {
                 <#=DalParameterName #>.TransactionBegin();
-                <#=DalParameterName #>.Insert(<#=DtoParameterName #>);
+                for (int i = 0; i < <#=DtoParameterName #>.Count; i++)
+                {
+<# if(DbColumns.Where(p => p.ColumnName == "Id").Count() > 0)
+{#>
+                    <#=DtoParameterName #>[i].Id = <#=DalParameterName #>.GetSequence("Id");
+<#}#>
+                    <#=DtoParameterName #>[i] = Insert(<#=DtoParameterName #>[i]);
+                    if (<#=DtoParameterName #>[i].Response.ResponseLevel == ResponseLevel.Warning)
+                    {
+                        <#=DalParameterName #>.TransactionRollback();
+                        return <#=DtoParameterName #>;
+                    }
+                }
 
                 <#=DalParameterName #>.TransactionCommit();
-                <#=DtoParameterName #>.Response = new Response(0, "Kaydedildi", ResponseLevel.Success);
                 return <#=DtoParameterName #>;
             }
             catch (Exception)
@@ -72,15 +65,22 @@ namespace <#=Namespace #>
             }
         }
 
-        public <#=DtoClassName #> Update(<#=DtoClassName #> <#=DtoParameterName #>)
+        public List<<#=DtoClassName #>> Update(List<<#=DtoClassName #>> <#=DtoParameterName #>)
         {
             try
             {
                 <#=DalParameterName #>.TransactionBegin();
-                <#=DalParameterName #>.Update(<#=DtoParameterName #>);
+                for (int i = 0; i < <#=DtoParameterName #>.Count; i++)
+                {
+                    <#=DtoParameterName #>[i] = Update(<#=DtoParameterName #>[i]);
+                    if (<#=DtoParameterName #>[i].Response.ResponseLevel == ResponseLevel.Warning)
+                    {
+                        <#=DalParameterName #>.TransactionRollback();
+                        return <#=DtoParameterName #>;
+                    }
+                }
 
                 <#=DalParameterName #>.TransactionCommit();
-                <#=DtoParameterName #>.Response = new Response(0, "Güncellendi", ResponseLevel.Success);
                 return <#=DtoParameterName #>;
             }
             catch (Exception)
@@ -90,15 +90,22 @@ namespace <#=Namespace #>
             }
         }
 
-        public <#=DtoClassName #> Delete(<#=DtoClassName #> <#=DtoParameterName #>)
+        public List<<#=DtoClassName #>> Delete(List<<#=DtoClassName #>> <#=DtoParameterName #>)
         {
             try
             {
                 <#=DalParameterName #>.TransactionBegin();
-                <#=DalParameterName #>.Delete(<#=DtoParameterName #>);
+                for (int i = 0; i < <#=DtoParameterName #>.Count; i++)
+                {
+                    <#=DtoParameterName #>[i] = Delete(<#=DtoParameterName #>[i]);
+                    if (<#=DtoParameterName #>[i].Response.ResponseLevel == ResponseLevel.Warning)
+                    {
+                        <#=DalParameterName #>.TransactionRollback();
+                        return <#=DtoParameterName #>;
+                    }
+                }
 
                 <#=DalParameterName #>.TransactionCommit();
-                <#=DtoParameterName #>.Response = new Response(0, "Silindi", ResponseLevel.Success);
                 return <#=DtoParameterName #>;
             }
             catch (Exception)

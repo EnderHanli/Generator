@@ -56,6 +56,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BusinessLogicLayerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Template\BusinessLogicLayerUDTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BusinessLogicLayerUDTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Template\DataAccessLayerTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +118,10 @@
     <Content Include="Template\BusinessLogicLayerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>BusinessLogicLayerTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Template\BusinessLogicLayerUDTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BusinessLogicLayerUDTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="Template\DataAccessLayerTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

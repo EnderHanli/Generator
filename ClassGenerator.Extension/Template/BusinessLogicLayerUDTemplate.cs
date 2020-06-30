@@ -19,9 +19,9 @@ namespace ClassGenerator.Extension.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+    #line 1 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class BusinessLogicLayerTemplate : BusinessLogicLayerTemplateBase
+    public partial class BusinessLogicLayerUDTemplate : BusinessLogicLayerUDTemplateBase
     {
 #line hidden
         /// <summary>
@@ -31,337 +31,347 @@ namespace ClassGenerator.Extension.Template
         {
             this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Appendesk;\r\nusing ");
             
-            #line 21 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 21 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoNamespace));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\nusing ");
-            
-            #line 22 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalNamespace));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 24 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 23 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n    public partial class ");
             
-            #line 26 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 25 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
-            this.Write(" : BusinessLayer\r\n    {\r\n        private readonly ");
+            this.Write(" : BusinessLayer\r\n    {\r\n        public List<");
             
-            #line 28 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalClassName));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 28 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n\r\n        public ");
-            
-            #line 30 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("()\r\n        {\r\n            ");
-            
-            #line 32 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 32 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalClassName));
-            
-            #line default
-            #line hidden
-            this.Write("();\r\n        }\r\n\r\n        public ");
-            
-            #line 35 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(string connectionName)\r\n        {\r\n            ");
-            
-            #line 37 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 37 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(connectionName);\r\n        }\r\n\r\n        public ");
-            
-            #line 40 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(DataLayer dataLayer)\r\n        {\r\n            ");
-            
-            #line 42 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(" = new ");
-            
-            #line 42 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalClassName));
-            
-            #line default
-            #line hidden
-            this.Write("(dataLayer);\r\n        }\r\n\r\n        public List<");
-            
-            #line 45 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 27 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write("> GetByParameter(List<QueryParameter> queryParameters)\r\n        {\r\n            tr" +
-                    "y\r\n            {\r\n                return ");
+            this.Write(@"> GetEntities(List<QueryParameter> queryParameters)
+        {
+            try
+            {
+                return GetByParameter(queryParameters);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<");
             
-            #line 49 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".GetByParameter(queryParameters);\r\n            }\r\n            catch (Exception)\r\n" +
-                    "            {\r\n                throw;\r\n            }\r\n        }\r\n\r\n        publi" +
-                    "c ");
-            
-            #line 57 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 39 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" Insert(");
+            this.Write("> Insert(List<");
             
-            #line 57 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 39 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("> ");
             
-            #line 57 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 39 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            try\r\n            {\r\n                ");
             
-            #line 61 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 43 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
             #line hidden
-            this.Write(".TransactionBegin();\r\n                ");
+            this.Write(".TransactionBegin();\r\n                for (int i = 0; i < ");
             
-            #line 62 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".Insert(");
-            
-            #line 62 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 44 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(");\r\n\r\n                ");
+            this.Write(".Count; i++)\r\n                {\r\n");
             
-            #line 64 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            #line 46 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+ if(DbColumns.Where(p => p.ColumnName == "Id").Count() > 0)
+{
             
             #line default
             #line hidden
-            this.Write(".TransactionCommit();\r\n                ");
+            this.Write("                    ");
             
-            #line 65 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 48 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(".Response = new Response(0, \"Kaydedildi\", ResponseLevel.Success);\r\n              " +
-                    "  return ");
+            this.Write("[i].Id = ");
             
-            #line 66 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 48 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".GetSequence(\"Id\");\r\n");
+            
+            #line 49 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 50 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i] = Insert(");
+            
+            #line 50 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i]);\r\n                    if (");
+            
+            #line 51 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i].Response.ResponseLevel == ResponseLevel.Warning)\r\n                    {\r\n    " +
+                    "                    ");
+            
+            #line 53 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionRollback();\r\n                        return ");
+            
+            #line 54 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                    }\r\n                }\r\n\r\n                ");
+            
+            #line 58 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionCommit();\r\n                return ");
+            
+            #line 59 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(";\r\n            }\r\n            catch (Exception)\r\n            {\r\n                ");
             
-            #line 70 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 63 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
             #line hidden
             this.Write(".TransactionRollback();\r\n                throw;\r\n            }\r\n        }\r\n\r\n    " +
-                    "    public ");
+                    "    public List<");
             
-            #line 75 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" Update(");
+            this.Write("> Update(List<");
             
-            #line 75 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("> ");
             
-            #line 75 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            try\r\n            {\r\n                ");
             
-            #line 79 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 72 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
             #line hidden
-            this.Write(".TransactionBegin();\r\n                ");
+            this.Write(".TransactionBegin();\r\n                for (int i = 0; i < ");
             
-            #line 80 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".Update(");
-            
-            #line 80 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 73 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(");\r\n\r\n                ");
+            this.Write(".Count; i++)\r\n                {\r\n                    ");
             
-            #line 82 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".TransactionCommit();\r\n                ");
-            
-            #line 83 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 75 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(".Response = new Response(0, \"Güncellendi\", ResponseLevel.Success);\r\n             " +
-                    "   return ");
+            this.Write("[i] = Update(");
             
-            #line 84 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 75 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i]);\r\n                    if (");
+            
+            #line 76 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i].Response.ResponseLevel == ResponseLevel.Warning)\r\n                    {\r\n    " +
+                    "                    ");
+            
+            #line 78 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionRollback();\r\n                        return ");
+            
+            #line 79 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                    }\r\n                }\r\n\r\n                ");
+            
+            #line 83 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionCommit();\r\n                return ");
+            
+            #line 84 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(";\r\n            }\r\n            catch (Exception)\r\n            {\r\n                ");
             
-            #line 88 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 88 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
             #line hidden
             this.Write(".TransactionRollback();\r\n                throw;\r\n            }\r\n        }\r\n\r\n    " +
-                    "    public ");
+                    "    public List<");
             
-            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" Delete(");
+            this.Write("> Delete(List<");
             
-            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("> ");
             
-            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 93 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            try\r\n            {\r\n                ");
             
-            #line 97 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 97 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
             #line hidden
-            this.Write(".TransactionBegin();\r\n                ");
+            this.Write(".TransactionBegin();\r\n                for (int i = 0; i < ");
             
-            #line 98 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".Delete(");
-            
-            #line 98 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 98 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(");\r\n\r\n                ");
+            this.Write(".Count; i++)\r\n                {\r\n                    ");
             
-            #line 100 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
-            
-            #line default
-            #line hidden
-            this.Write(".TransactionCommit();\r\n                ");
-            
-            #line 101 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 100 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
-            this.Write(".Response = new Response(0, \"Silindi\", ResponseLevel.Success);\r\n                r" +
-                    "eturn ");
+            this.Write("[i] = Delete(");
             
-            #line 102 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 100 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i]);\r\n                    if (");
+            
+            #line 101 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write("[i].Response.ResponseLevel == ResponseLevel.Warning)\r\n                    {\r\n    " +
+                    "                    ");
+            
+            #line 103 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionRollback();\r\n                        return ");
+            
+            #line 104 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                    }\r\n                }\r\n\r\n                ");
+            
+            #line 108 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
+            
+            #line default
+            #line hidden
+            this.Write(".TransactionCommit();\r\n                return ");
+            
+            #line 109 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(";\r\n            }\r\n            catch (Exception)\r\n            {\r\n                ");
             
-            #line 106 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+            #line 113 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DalParameterName));
             
             #line default
@@ -371,7 +381,7 @@ namespace ClassGenerator.Extension.Template
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerTemplate.tt"
+        #line 1 "W:\Generator\ClassGenerator.Extension\Template\BusinessLogicLayerUDTemplate.tt"
 
 private string _NamespaceField;
 
@@ -669,7 +679,7 @@ if ((DbColumnsValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class BusinessLogicLayerTemplateBase
+    public class BusinessLogicLayerUDTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

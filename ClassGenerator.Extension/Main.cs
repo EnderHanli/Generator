@@ -22,6 +22,12 @@ namespace ClassGenerator.Extension
         private Project _projectDal;
         private Project _projectBll;
 
+        private string _projectDtoClassName;
+        private string _projectBllClassName;
+        private string _projectDalClassName;
+        private string _projectDtoParameterName;
+        private string _projectDalParameterName;
+
         private DatabaseHelper _databaseHelper;
         private Dictionary<string, List<DbModel>> _dbObjects;
         private readonly List<TreeNode> _checkedNodes;
@@ -44,7 +50,7 @@ namespace ClassGenerator.Extension
 
             _projectPathDto = _projectDto.GetFullPath();
             _projectPathDal = _projectDal.GetFullPath();
-            _projectPathBll = _projectDal.GetFullPath();
+            _projectPathBll = _projectBll.GetFullPath();
 
             _databaseHelper = new DatabaseHelper(_projectPathDto);
         }
@@ -139,9 +145,12 @@ namespace ClassGenerator.Extension
         {
             foreach (var item in _checkedNodes)
             {
+                GenerateClassNames(item);
+                GenerateParameterNames(item);
                 var columns = GenerateDtoClass(item);
                 GenerateDalClass(item, columns);
-                GenerateBllClass(item,columns);
+                GenerateBllClass(columns);
+                GenerateUserDefinedBllClass(columns);
             }
         }
 
@@ -150,21 +159,21 @@ namespace ClassGenerator.Extension
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var generateDto = new GenerateDto(_databaseHelper);
             var objectId = long.Parse(treeNode.Tag.ToString());
-            var tableName = treeNode.Text.Split('.')[1];
             var columns = generateDto.Generate(objectId);
+            var fileName = _projectDtoClassName + ProjectHelper.ClassExtension;
 
-            var dataTransferObjectTemplate = new DataTransferObjectTemplate();
-            var className = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.DataTransferObjectSuffix;
-            var fileName = className + ProjectHelper.ClassExtension;
-            dataTransferObjectTemplate.Session = new Dictionary<string, object>()
+            var dataTransferObjectTemplate = new DataTransferObjectTemplate
             {
-                {"Namespace",_projectDto.Name },
-                {"ClassName",className },
-                {"DbColumns",columns }
+                Session = new Dictionary<string, object>
+                {
+                    {"Namespace",_projectDto.Name },
+                    {"ClassName",_projectDtoClassName },
+                    {"DbColumns",columns }
+                }
             };
             dataTransferObjectTemplate.Initialize();
             var result = dataTransferObjectTemplate.TransformText();
-            File.WriteAllText(_projectDto.GetFullPath() + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
+            File.WriteAllText(_projectPathDto + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
             ProjectHelper.IncludeNewFiles(fileName);
             return columns;
         }
@@ -172,66 +181,142 @@ namespace ClassGenerator.Extension
         private void GenerateDalClass(TreeNode treeNode, List<DbColumn> columns)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            var schemaName = treeNode.Text.Split('.')[0];
-            var tableName = treeNode.Text.Split('.')[1];
+            var schemaName = GetSchemaName(treeNode);
+            var tableName = GetTableName(treeNode);
+            var fileName = _projectDalClassName + ProjectHelper.ClassExtension;
             var entitiesSql = GenerateDal.GetEntitiesSql(schemaName, tableName);
             var insertSql = GenerateDal.GetInsertSql(schemaName, tableName, columns);
             var updateSql = GenerateDal.GetUpdateSql(schemaName, tableName, columns);
             var deleteSql = GenerateDal.GetDeleteSql(schemaName, tableName, columns);
 
-            var dataAccessLayerTemplate = new DataAccessLayerTemplate();
-            var className = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.DataAccessLayerSuffix;
-            var dtoClassName = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.DataTransferObjectSuffix;
-            var dtoParameterName = ProjectHelper.GetCamelCase(tableName) + ProjectHelper.DataTransferObjectSuffix;
-            var fileName = className + ProjectHelper.ClassExtension;
-            dataAccessLayerTemplate.Session = new Dictionary<string, object>()
+            var dataAccessLayerTemplate = new DataAccessLayerTemplate
             {
-                {"Namespace",_projectDal.Name },
-                {"DtoNamespace",_projectDto.Name },
-                {"DtoClassName",dtoClassName },
-                {"DtoParameterName",dtoParameterName },
-                {"ClassName",className },
-                {"SchemaName",schemaName },
-                {"GetSql",entitiesSql},
-                {"InsertSql",insertSql },
-                {"UpdateSql",updateSql },
-                {"DeleteSql",deleteSql },
-                {"DbColumns",columns }
+                Session = new Dictionary<string, object>
+                {
+                    {"Namespace", _projectDal.Name},
+                    {"ClassName", _projectDalClassName},
+                    {"SchemaName", schemaName},
+                    {"GetSql", entitiesSql},
+                    {"InsertSql", insertSql},
+                    {"UpdateSql", updateSql},
+                    {"DeleteSql", deleteSql},
+                    {"DtoNamespace", _projectDto.Name},
+                    {"DtoClassName", _projectDtoClassName},
+                    {"DtoParameterName", _projectDtoParameterName},
+                    {"DbColumns", columns}
+                }
             };
+
             dataAccessLayerTemplate.Initialize();
             var result = dataAccessLayerTemplate.TransformText();
-            File.WriteAllText(_projectDal.GetFullPath() + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
+            File.WriteAllText(_projectPathDal + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
             ProjectHelper.IncludeNewFiles(fileName);
         }
 
-        private void GenerateBllClass(TreeNode treeNode, List<DbColumn> columns)
+        private void GenerateBllClass(List<DbColumn> columns)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            var tableName = treeNode.Text.Split('.')[1];
+            var fileName = _projectBllClassName + ProjectHelper.ClassExtension;
 
-            var businessLogicLayerTemplate = new BusinessLogicLayerTemplate();
-            var className = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.BusinessLayerSuffix;
-            var dtoClassName = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.DataTransferObjectSuffix;
-            var dtoParameterName = ProjectHelper.GetCamelCase(tableName) + ProjectHelper.DataTransferObjectSuffix;
-            var dalClassName = ProjectHelper.GetPascalCase(tableName) + ProjectHelper.DataAccessLayerSuffix;
-            var dalParameterName = "_" + ProjectHelper.GetCamelCase(tableName) + ProjectHelper.DataAccessLayerSuffix;
-            var fileName = className + ProjectHelper.ClassExtension;
-            businessLogicLayerTemplate.Session = new Dictionary<string, object>()
+            var businessLogicLayerTemplate = new BusinessLogicLayerTemplate
             {
-                {"Namespace",_projectDal.Name },
-                {"DtoNamespace",_projectDto.Name },
-                {"DtoClassName",dtoClassName },
-                {"DtoParameterName",dtoParameterName },
-                {"DalNamespace",_projectDal.Name },
-                {"DalClassName",dalClassName },
-                {"DalParameterName",dalParameterName },
-                {"ClassName",className },
-                {"DbColumns",columns }
+                Session = new Dictionary<string, object>
+                {
+                    {"Namespace",_projectBll.Name },
+                    {"ClassName",_projectBllClassName },
+                    {"DtoNamespace",_projectDto.Name },
+                    {"DtoClassName",_projectDtoClassName },
+                    {"DtoParameterName",_projectDtoParameterName },
+                    {"DalNamespace",_projectDal.Name },
+                    {"DalClassName",_projectDalClassName },
+                    {"DalParameterName",_projectDalParameterName },
+                    {"DbColumns",columns }
+                }
             };
             businessLogicLayerTemplate.Initialize();
             var result = businessLogicLayerTemplate.TransformText();
-            File.WriteAllText(_projectBll.GetFullPath() + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
+            var filePath = _projectPathBll + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName;
+            File.WriteAllText(filePath, result);
             ProjectHelper.IncludeNewFiles(fileName);
+        }
+
+        private void GenerateUserDefinedBllClass(List<DbColumn> columns)
+        {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            var fileName = _projectBllClassName + ProjectHelper.ClassExtension;
+            var filePath = _projectPathBll + "\\" + ProjectHelper.UserDefinedFolderName + "\\" + fileName;
+            if (File.Exists(filePath) == true)
+                return;
+
+            var businessLogicLayerUdTemplate = new BusinessLogicLayerUDTemplate
+            {
+                Session = new Dictionary<string, object>
+                {
+                    {"Namespace",_projectBll.Name },
+                    {"ClassName",_projectBllClassName },
+                    {"DtoNamespace",_projectDto.Name },
+                    {"DtoClassName",_projectDtoClassName },
+                    {"DtoParameterName",_projectDtoParameterName },
+                    {"DalNamespace",_projectDal.Name },
+                    {"DalClassName",_projectDalClassName },
+                    {"DalParameterName",_projectDalParameterName },
+                    {"DbColumns",columns }
+                }
+            };
+            businessLogicLayerUdTemplate.Initialize();
+            var result = businessLogicLayerUdTemplate.TransformText();
+            File.WriteAllText(filePath, result);
+            ProjectHelper.IncludeNewFiles(fileName, ProjectHelper.UserDefinedFolderName);
+        }
+
+        private static string GetClassName(string tableName)
+        {
+            var className = "";
+            var tableStrings = tableName.Split('_');
+            if (tableStrings.Length == 1)
+            {
+                className = tableName;
+            }
+            else
+            {
+                for (int i = 1; i < tableStrings.Length; i++)
+                {
+                    className += tableStrings[i];
+                }
+            }
+            return className;
+        }
+
+        private void GenerateClassNames(TreeNode treeNode)
+        {
+            var tableName = GetTableName(treeNode);
+            string className = ProjectHelper.GetPascalCase(GetClassName(tableName));
+            _projectDtoClassName = className + ProjectHelper.DataTransferObjectSuffix;
+            _projectDalClassName = className + ProjectHelper.DataAccessLayerSuffix;
+            _projectBllClassName = className + ProjectHelper.BusinessLayerSuffix;
+        }
+
+        private void GenerateParameterNames(TreeNode treeNode)
+        {
+            var tableName = GetTableName(treeNode);
+            var parameterName = ProjectHelper.GetCamelCase(GetClassName(tableName));
+            _projectDtoParameterName = parameterName + ProjectHelper.DataTransferObjectSuffix;
+            _projectDalParameterName = parameterName + ProjectHelper.DataAccessLayerSuffix;
+        }
+
+        private static string GetTableName(TreeNode treeNode)
+        {
+            var treeNodeStrings = treeNode.Text.Split('.');
+            return treeNodeStrings.Length == 1 ? treeNode.Text : treeNodeStrings[1];
+        }
+
+        private static string GetSchemaName(TreeNode treeNode)
+        {
+            var schemaName = "";
+            var treeNodeStrings = treeNode.Text.Split('.');
+            if (treeNodeStrings.Length > 1)
+                schemaName = treeNodeStrings[0];
+            return schemaName;
         }
     }
 }
