@@ -60,15 +60,19 @@ namespace ClassGenerator.Extension.Helper
                 .Replace(" ", string.Empty);
         }
 
-        public static void IncludeNewFiles(string fileName,string folderName=BaseFolderName)
+        public static void IncludeNewFiles(string fileName, string folderName = BaseFolderName)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var count = 0;
 
             foreach (Project project in Dte.Solution.Projects)
             {
-                if (!project.UniqueName.EndsWith(ProjectSuffix))
+                if (!project.UniqueName.EndsWith(BusinessLayerSuffix + ProjectSuffix) &&
+                    !project.UniqueName.EndsWith(DataAccessLayerSuffix + ProjectSuffix) &&
+                    !project.UniqueName.EndsWith(DataTransferObjectSuffix + ProjectSuffix))
+                {
                     continue;
+                }
 
                 var newfiles = GetFilesNotInProject(project, fileName, folderName);
 
