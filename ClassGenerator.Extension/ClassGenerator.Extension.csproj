@@ -45,31 +45,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Generate\GenerateBll.cs" />
-    <Compile Include="Generate\GenerateDal.cs" />
-    <Compile Include="Generate\GenerateDto.cs" />
+    <Compile Include="Generate\GenerateService.cs" />
+    <Compile Include="Generate\GenerateRepository.cs" />
+    <Compile Include="Generate\GenerateEntity.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="Helper\TypeHelper.cs" />
     <Compile Include="Model\DbColumn.cs" />
-    <Compile Include="Template\BusinessLogicLayerTemplate.cs">
+    <Compile Include="Template\ServiceBaseTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BusinessLogicLayerTemplate.tt</DependentUpon>
+      <DependentUpon>ServiceBaseTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Template\BusinessLogicLayerUDTemplate.cs">
+    <Compile Include="Template\ServiceUserDefinedTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BusinessLogicLayerUDTemplate.tt</DependentUpon>
+      <DependentUpon>ServiceUserDefinedTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Template\DataAccessLayerTemplate.cs">
+    <Compile Include="Template\RepositoryTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataAccessLayerTemplate.tt</DependentUpon>
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Template\DataTransferObjectTemplate.cs">
+    <Compile Include="Template\EntityTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataTransferObjectTemplate.tt</DependentUpon>
+      <DependentUpon>EntityTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Enums\DatabaseType.cs" />
     <Compile Include="GenerateCommand.cs" />
@@ -115,21 +115,21 @@
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.5.2047" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Template\BusinessLogicLayerTemplate.tt">
+    <Content Include="Template\ServiceBaseTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>BusinessLogicLayerTemplate.cs</LastGenOutput>
+      <LastGenOutput>ServiceBaseTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Template\BusinessLogicLayerUDTemplate.tt">
+    <Content Include="Template\ServiceUserDefinedTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>BusinessLogicLayerUDTemplate.cs</LastGenOutput>
+      <LastGenOutput>ServiceUserDefinedTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Template\DataAccessLayerTemplate.tt">
+    <Content Include="Template\RepositoryTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DataAccessLayerTemplate.cs</LastGenOutput>
+      <LastGenOutput>RepositoryTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Template\DataTransferObjectTemplate.tt">
+    <Content Include="Template\EntityTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DataTransferObjectTemplate.cs</LastGenOutput>
+      <LastGenOutput>EntityTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\GenerateCommand.png" />
     <VSCTCompile Include="ClassGeneratorExtensionPackage.vsct">

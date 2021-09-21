@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ClassGenerator.Extension.Generate
 {
-    public static class GenerateDal
+    public static class GenerateRepository
     {
         private const string ParameterMarker = "@";
 

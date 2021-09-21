@@ -19,9 +19,9 @@ namespace ClassGenerator.Extension.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+    #line 1 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class DataAccessLayerTemplate : DataAccessLayerTemplateBase
+    public partial class RepositoryTemplate : RepositoryTemplateBase
     {
 #line hidden
         /// <summary>
@@ -32,49 +32,49 @@ namespace ClassGenerator.Extension.Template
             this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing System.Data;\r\nusing Appen" +
                     "desk;\r\nusing ");
             
-            #line 23 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 23 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoNamespace));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 25 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 25 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\tpublic sealed partial class ");
             
-            #line 27 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 27 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" : DataLayer\r\n\t{\r\n\t\tpublic ");
             
-            #line 29 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 29 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write("()\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic ");
             
-            #line 33 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 33 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write("(string connectionName) : base(connectionName)\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic ");
             
-            #line 37 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 37 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write("(DataLayer dataLayer) : base(dataLayer)\r\n\t\t{\r\n\t\t}\r\n\r\n\t\tpublic List<");
             
-            #line 41 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 41 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
@@ -83,7 +83,7 @@ namespace ClassGenerator.Extension.Template
                     "= string.Empty;\r\n\r\n            if (queryParameters.Count > 0)\r\n                w" +
                     "hereClause = GetWhereClause(queryParameters);\r\n\r\n            string sql = \"");
             
-            #line 48 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 48 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetSql));
             
             #line default
@@ -91,35 +91,35 @@ namespace ClassGenerator.Extension.Template
             this.Write("\" + whereClause;\r\n            var command = GetQueryCommand(sql);\r\n            co" +
                     "mmand.AddParameters(queryParameters);\r\n            return GetEntites<");
             
-            #line 51 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 51 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
             this.Write(">(command);\r\n\t\t}\r\n\r\n\t\tpublic void Insert (");
             
-            #line 54 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 54 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 54 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 54 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\tconst string sql = \"");
             
-            #line 56 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 56 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(InsertSql));
             
             #line default
             #line hidden
             this.Write("\";\r\n            var command = GetQueryCommand(sql);\r\n\r\n");
             
-            #line 59 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 59 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
  
 foreach (var parameter in DbColumns) 
 {
@@ -132,63 +132,63 @@ if(parameter.IsNullable == true)
             #line hidden
             this.Write("\t\t\tif(");
             
-            #line 66 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 66 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 66 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 66 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(".HasValue == true)\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 68 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 68 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 68 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 68 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 68 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 72 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 72 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", DBNull.Value, DbType.");
             
-            #line 72 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 72 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n");
             
-            #line 74 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 74 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 else
 {
@@ -197,63 +197,63 @@ else
             #line hidden
             this.Write("\t\t\tif(");
             
-            #line 77 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 77 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 77 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 77 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(" != DateTime.MinValue)\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 79 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 79 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 79 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 79 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 79 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 79 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 79 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 79 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 83 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 83 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", DateTime.Now, DbType.");
             
-            #line 83 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 83 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n");
             
-            #line 85 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 85 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 }
 else
@@ -263,35 +263,35 @@ else
             #line hidden
             this.Write("\t\t\tcommand.AddParameter(\"");
             
-            #line 89 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 89 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 89 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 89 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 89 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 89 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 89 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 89 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 90 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 90 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 }
 
@@ -300,28 +300,28 @@ else
             #line hidden
             this.Write("\r\n            Insert(command);\r\n\t\t}\r\n\r\n\t\tpublic void Update (");
             
-            #line 97 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 97 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 97 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 97 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\tconst string sql = \"");
             
-            #line 99 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 99 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(UpdateSql));
             
             #line default
             #line hidden
             this.Write("\";\r\n            var command = GetQueryCommand(sql);\r\n\r\n");
             
-            #line 102 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 102 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
  
 foreach (var parameter in DbColumns) 
 {
@@ -334,63 +334,63 @@ if(parameter.IsNullable == true)
             #line hidden
             this.Write("\t\t\tif(");
             
-            #line 109 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 109 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 109 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 109 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(".HasValue == true)\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 111 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 111 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 111 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 111 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 111 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 111 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 111 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 111 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 115 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 115 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", DBNull.Value, DbType.");
             
-            #line 115 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 115 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n");
             
-            #line 117 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 117 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 else
 {
@@ -399,63 +399,63 @@ else
             #line hidden
             this.Write("\t\t\tif(");
             
-            #line 120 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 120 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 120 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 120 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(" != DateTime.MinValue)\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 122 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 122 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 122 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 122 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 122 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 122 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 122 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 122 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tcommand.AddParameter(\"");
             
-            #line 126 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 126 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", DateTime.Now, DbType.");
             
-            #line 126 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 126 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n\t\t\t}\r\n");
             
-            #line 128 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 128 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 }
 else
@@ -465,35 +465,35 @@ else
             #line hidden
             this.Write("\t\t\tcommand.AddParameter(\"");
             
-            #line 132 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 132 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 132 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 132 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 132 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 132 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 132 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 132 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 133 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 133 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 }
 
@@ -502,28 +502,28 @@ else
             #line hidden
             this.Write("\r\n            Update(command);\r\n\t\t}\r\n\r\n\t\tpublic void Delete (");
             
-            #line 140 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 140 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoClassName));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 140 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 140 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(")\r\n\t\t{\r\n\t\t\tconst string sql = \"");
             
-            #line 142 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 142 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DeleteSql));
             
             #line default
             #line hidden
             this.Write("\";\r\n            var command = GetQueryCommand(sql);\r\n\r\n");
             
-            #line 145 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 145 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
  
 foreach (var parameter in DbColumns) 
 {
@@ -534,35 +534,35 @@ if(parameter.IsPrimaryKey == true)
             #line hidden
             this.Write("\t\t\tcommand.AddParameter(\"");
             
-            #line 150 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 150 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write("\", ");
             
-            #line 150 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 150 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DtoParameterName));
             
             #line default
             #line hidden
             this.Write(".");
             
-            #line 150 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 150 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(", DbType.");
             
-            #line 150 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 150 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.DbType));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 151 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+            #line 151 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 }
 
 }
@@ -574,7 +574,7 @@ if(parameter.IsPrimaryKey == true)
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "W:\Generator\ClassGenerator.Extension\Template\DataAccessLayerTemplate.tt"
+        #line 1 "W:\Generator\ClassGenerator.Extension\Template\RepositoryTemplate.tt"
 
 private string _NamespaceField;
 
@@ -899,7 +899,7 @@ if ((DbColumnsValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class DataAccessLayerTemplateBase
+    public class RepositoryTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

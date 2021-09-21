@@ -10,11 +10,10 @@ namespace ClassGenerator.Extension.Helper
     public static class ProjectHelper
     {
         public const string ClassExtension = ".cs";
-        public const string BaseFolderName = "Base";
-        public const string UserDefinedFolderName = "UserDefined";
-        public const string DataTransferObjectSuffix = "Dto";
-        public const string DataAccessLayerSuffix = "Dal";
-        public const string BusinessLayerSuffix = "Bll";
+        public const string BaseFolderName = "Base/Class";
+        public const string UserDefinedFolderName = "UserDefined/Class";
+        public const string RepositorySuffix = "Repository";
+        public const string ServiceSuffix = "Service";
         public const string ProjectSuffix = ".csproj";
         private static readonly DTE2 Dte = ClassGeneratorExtensionPackage.Instance.Dte;
 
@@ -22,20 +21,20 @@ namespace ClassGenerator.Extension.Helper
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var projects = Dte.Solution.Projects;
-            return projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith(DataTransferObjectSuffix + ProjectSuffix));
+            return projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith(ProjectSuffix));
         }
 
         public static Project GetDataAccessProject()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            return Dte.Solution.Projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith(DataAccessLayerSuffix + ProjectSuffix));
+            return Dte.Solution.Projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith(RepositorySuffix + ProjectSuffix));
         }
 
         public static Project GetBusinessLayerProject()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var projects = Dte.Solution.Projects;
-            return projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith("." + BusinessLayerSuffix + ProjectSuffix));
+            return projects.Cast<Project>().FirstOrDefault(project => project.UniqueName.EndsWith("." + ServiceSuffix + ProjectSuffix));
         }
 
         /// <summary>
@@ -67,9 +66,9 @@ namespace ClassGenerator.Extension.Helper
 
             foreach (Project project in Dte.Solution.Projects)
             {
-                if (!project.UniqueName.EndsWith(BusinessLayerSuffix + ProjectSuffix) &&
-                    !project.UniqueName.EndsWith(DataAccessLayerSuffix + ProjectSuffix) &&
-                    !project.UniqueName.EndsWith(DataTransferObjectSuffix + ProjectSuffix))
+                if (!project.UniqueName.EndsWith(ServiceSuffix + ProjectSuffix) &&
+                    !project.UniqueName.EndsWith(RepositorySuffix + ProjectSuffix) &&
+                    !project.UniqueName.EndsWith(ProjectSuffix))
                 {
                     continue;
                 }

@@ -18,9 +18,9 @@ namespace ClassGenerator.Extension.Template
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+    #line 1 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class DataTransferObjectTemplate : DataTransferObjectTemplateBase
+    public partial class EntityTemplate : EntityTemplateBase
     {
 #line hidden
         /// <summary>
@@ -31,21 +31,21 @@ namespace ClassGenerator.Extension.Template
             this.Write("using System;\r\nusing System.Runtime.Serialization;\r\nusing Appendesk;\r\n\r\nnamespace" +
                     " ");
             
-            #line 13 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 13 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n\t[DataContract]\r\n\tpublic partial class ");
             
-            #line 16 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 16 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ClassName));
             
             #line default
             #line hidden
             this.Write(" : ObjectLayer\r\n\t{\r\n");
             
-            #line 18 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 18 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
  
 foreach (var parameter in DbColumns) 
 { 
@@ -54,21 +54,21 @@ foreach (var parameter in DbColumns)
             #line hidden
             this.Write("\t\t[DataMember]\r\n\t\tpublic ");
             
-            #line 22 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 22 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.CsType));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 22 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 22 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(parameter.ColumnName));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 23 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+            #line 23 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
 
 }
 
@@ -79,7 +79,7 @@ foreach (var parameter in DbColumns)
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "W:\Generator\ClassGenerator.Extension\Template\DataTransferObjectTemplate.tt"
+        #line 1 "W:\Generator\ClassGenerator.Extension\Template\EntityTemplate.tt"
 
 private global::System.Collections.Generic.List<Model.DbColumn> _DbColumnsField;
 
@@ -188,7 +188,7 @@ if ((ClassNameValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class DataTransferObjectTemplateBase
+    public class EntityTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

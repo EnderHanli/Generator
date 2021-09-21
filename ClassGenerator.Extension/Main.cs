@@ -22,11 +22,11 @@ namespace ClassGenerator.Extension
         private Project _projectDal;
         private Project _projectBll;
 
-        private string _projectDtoClassName;
-        private string _projectBllClassName;
-        private string _projectDalClassName;
-        private string _projectDtoParameterName;
-        private string _projectDalParameterName;
+        private string _projectEntityClassName;
+        private string _projectServiceClassName;
+        private string _projectRespositoryClassName;
+        private string _projectEntityParameterName;
+        private string _projectRepositoryParameterName;
 
         private DatabaseHelper _databaseHelper;
         private Dictionary<string, List<DbModel>> _dbObjects;
@@ -147,32 +147,32 @@ namespace ClassGenerator.Extension
             {
                 GenerateClassNames(item);
                 GenerateParameterNames(item);
-                var columns = GenerateDtoClass(item);
+                var columns = GenerateEntityClass(item);
                 GenerateDalClass(item, columns);
                 GenerateBllClass(columns);
                 GenerateUserDefinedBllClass(columns);
             }
         }
 
-        private List<DbColumn> GenerateDtoClass(TreeNode treeNode)
+        private List<DbColumn> GenerateEntityClass(TreeNode treeNode)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            var generateDto = new GenerateDto(_databaseHelper);
+            var generateEntity = new GenerateEntity(_databaseHelper);
             var objectId = long.Parse(treeNode.Tag.ToString());
-            var columns = generateDto.Generate(objectId);
-            var fileName = _projectDtoClassName + ProjectHelper.ClassExtension;
+            var columns = generateEntity.Generate(objectId);
+            var fileName = _projectEntityClassName;
 
-            var dataTransferObjectTemplate = new DataTransferObjectTemplate
+            var entityTemplate = new EntityTemplate
             {
                 Session = new Dictionary<string, object>
                 {
                     {"Namespace",_projectDto.Name },
-                    {"ClassName",_projectDtoClassName },
+                    {"ClassName",_projectEntityClassName },
                     {"DbColumns",columns }
                 }
             };
-            dataTransferObjectTemplate.Initialize();
-            var result = dataTransferObjectTemplate.TransformText();
+            entityTemplate.Initialize();
+            var result = entityTemplate.TransformText();
             File.WriteAllText(_projectPathDto + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
             ProjectHelper.IncludeNewFiles(fileName);
             return columns;
@@ -183,32 +183,32 @@ namespace ClassGenerator.Extension
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var schemaName = GetSchemaName(treeNode);
             var tableName = GetTableName(treeNode);
-            var fileName = _projectDalClassName + ProjectHelper.ClassExtension;
-            var entitiesSql = GenerateDal.GetEntitiesSql(schemaName, tableName);
-            var insertSql = GenerateDal.GetInsertSql(schemaName, tableName, columns);
-            var updateSql = GenerateDal.GetUpdateSql(schemaName, tableName, columns);
-            var deleteSql = GenerateDal.GetDeleteSql(schemaName, tableName, columns);
+            var fileName = _projectRespositoryClassName + ProjectHelper.ClassExtension;
+            var entitiesSql = GenerateRepository.GetEntitiesSql(schemaName, tableName);
+            var insertSql = GenerateRepository.GetInsertSql(schemaName, tableName, columns);
+            var updateSql = GenerateRepository.GetUpdateSql(schemaName, tableName, columns);
+            var deleteSql = GenerateRepository.GetDeleteSql(schemaName, tableName, columns);
 
-            var dataAccessLayerTemplate = new DataAccessLayerTemplate
+            var repositoryTemplate = new RepositoryTemplate
             {
                 Session = new Dictionary<string, object>
                 {
                     {"Namespace", _projectDal.Name},
-                    {"ClassName", _projectDalClassName},
+                    {"ClassName", _projectRespositoryClassName},
                     {"SchemaName", schemaName},
                     {"GetSql", entitiesSql},
                     {"InsertSql", insertSql},
                     {"UpdateSql", updateSql},
                     {"DeleteSql", deleteSql},
                     {"DtoNamespace", _projectDto.Name},
-                    {"DtoClassName", _projectDtoClassName},
-                    {"DtoParameterName", _projectDtoParameterName},
+                    {"DtoClassName", _projectEntityClassName},
+                    {"DtoParameterName", _projectEntityParameterName},
                     {"DbColumns", columns}
                 }
             };
 
-            dataAccessLayerTemplate.Initialize();
-            var result = dataAccessLayerTemplate.TransformText();
+            repositoryTemplate.Initialize();
+            var result = repositoryTemplate.TransformText();
             File.WriteAllText(_projectPathDal + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName, result);
             ProjectHelper.IncludeNewFiles(fileName);
         }
@@ -216,25 +216,25 @@ namespace ClassGenerator.Extension
         private void GenerateBllClass(List<DbColumn> columns)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            var fileName = _projectBllClassName + ProjectHelper.ClassExtension;
+            var fileName = _projectServiceClassName + ProjectHelper.ClassExtension;
 
-            var businessLogicLayerTemplate = new BusinessLogicLayerTemplate
+            var serviceBaseTemplate = new ServiceBaseTemplate
             {
                 Session = new Dictionary<string, object>
                 {
                     {"Namespace",_projectBll.Name },
-                    {"ClassName",_projectBllClassName },
+                    {"ClassName",_projectServiceClassName },
                     {"DtoNamespace",_projectDto.Name },
-                    {"DtoClassName",_projectDtoClassName },
-                    {"DtoParameterName",_projectDtoParameterName },
+                    {"DtoClassName",_projectEntityClassName },
+                    {"DtoParameterName",_projectEntityParameterName },
                     {"DalNamespace",_projectDal.Name },
-                    {"DalClassName",_projectDalClassName },
-                    {"DalParameterName",_projectDalParameterName },
+                    {"DalClassName",_projectRespositoryClassName },
+                    {"DalParameterName",_projectRepositoryParameterName },
                     {"DbColumns",columns }
                 }
             };
-            businessLogicLayerTemplate.Initialize();
-            var result = businessLogicLayerTemplate.TransformText();
+            serviceBaseTemplate.Initialize();
+            var result = serviceBaseTemplate.TransformText();
             var filePath = _projectPathBll + "\\" + ProjectHelper.BaseFolderName + "\\" + fileName;
             File.WriteAllText(filePath, result);
             ProjectHelper.IncludeNewFiles(fileName);
@@ -243,28 +243,28 @@ namespace ClassGenerator.Extension
         private void GenerateUserDefinedBllClass(List<DbColumn> columns)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            var fileName = _projectBllClassName + ProjectHelper.ClassExtension;
+            var fileName = _projectServiceClassName + ProjectHelper.ClassExtension;
             var filePath = _projectPathBll + "\\" + ProjectHelper.UserDefinedFolderName + "\\" + fileName;
             if (File.Exists(filePath) == true)
                 return;
 
-            var businessLogicLayerUdTemplate = new BusinessLogicLayerUDTemplate
+            var serviceUserDefinedTemplate = new ServiceUserDefinedTemplate
             {
                 Session = new Dictionary<string, object>
                 {
                     {"Namespace",_projectBll.Name },
-                    {"ClassName",_projectBllClassName },
+                    {"ClassName",_projectServiceClassName },
                     {"DtoNamespace",_projectDto.Name },
-                    {"DtoClassName",_projectDtoClassName },
-                    {"DtoParameterName",_projectDtoParameterName },
+                    {"DtoClassName",_projectEntityClassName },
+                    {"DtoParameterName",_projectEntityParameterName },
                     {"DalNamespace",_projectDal.Name },
-                    {"DalClassName",_projectDalClassName },
-                    {"DalParameterName",_projectDalParameterName },
+                    {"DalClassName",_projectRespositoryClassName },
+                    {"DalParameterName",_projectRepositoryParameterName },
                     {"DbColumns",columns }
                 }
             };
-            businessLogicLayerUdTemplate.Initialize();
-            var result = businessLogicLayerUdTemplate.TransformText();
+            serviceUserDefinedTemplate.Initialize();
+            var result = serviceUserDefinedTemplate.TransformText();
             File.WriteAllText(filePath, result);
             ProjectHelper.IncludeNewFiles(fileName, ProjectHelper.UserDefinedFolderName);
         }
@@ -291,17 +291,17 @@ namespace ClassGenerator.Extension
         {
             var tableName = GetTableName(treeNode);
             string className = ProjectHelper.GetPascalCase(GetClassName(tableName));
-            _projectDtoClassName = className + ProjectHelper.DataTransferObjectSuffix;
-            _projectDalClassName = className + ProjectHelper.DataAccessLayerSuffix;
-            _projectBllClassName = className + ProjectHelper.BusinessLayerSuffix;
+            _projectEntityClassName = className + ProjectHelper.DataTransferObjectSuffix;
+            _projectRespositoryClassName = className + ProjectHelper.RepositorySuffix;
+            _projectServiceClassName = className + ProjectHelper.ServiceSuffix;
         }
 
         private void GenerateParameterNames(TreeNode treeNode)
         {
             var tableName = GetTableName(treeNode);
             var parameterName = ProjectHelper.GetCamelCase(GetClassName(tableName));
-            _projectDtoParameterName = parameterName + ProjectHelper.DataTransferObjectSuffix;
-            _projectDalParameterName = parameterName + ProjectHelper.DataAccessLayerSuffix;
+            _projectEntityParameterName = parameterName + ProjectHelper.DataTransferObjectSuffix;
+            _projectRepositoryParameterName = parameterName + ProjectHelper.RepositorySuffix;
         }
 
         private static string GetTableName(TreeNode treeNode)

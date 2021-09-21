@@ -10,11 +10,11 @@ using DbColumn = ClassGenerator.Extension.Model.DbColumn;
 
 namespace ClassGenerator.Extension.Generate
 {
-    public class GenerateDto
+    public class GenerateEntity
     {
         private readonly DatabaseHelper _databaseHelper;
 
-        public GenerateDto(DatabaseHelper databaseHelper)
+        public GenerateEntity(DatabaseHelper databaseHelper)
         {
             _databaseHelper = databaseHelper;
         }
